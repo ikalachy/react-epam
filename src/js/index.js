@@ -1,8 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Form from "./components/Form";
+
+import App from "./App";
 
 
-const wrapper = document.getElementById("root");
-
-wrapper ? ReactDOM.render(<Form />, wrapper) : false;
+const rootElement = document.getElementById("root");
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  rootElement
+);
