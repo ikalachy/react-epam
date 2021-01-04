@@ -22,7 +22,7 @@ class SearchCard extends React.Component {
           </Col>
 
           <Col md={4} className="my-1">
-            <Button type="submit" size="lg" variant="danger" size="lg">Submit</Button>
+            <Button type="submit" variant="danger" size="lg">Submit</Button>
           </Col>
         </Form.Row>
       </Form>);

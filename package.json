@@ -14,6 +14,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
     "@webpack-cli/serve": "^1.1.0",
@@ -37,6 +38,7 @@
     "react-holder": "^1.0.0",
     "react-redux": "^7.2.2",
     "react-router": "^5.2.0",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "uuid": "^8.3.2"
   }
 }
