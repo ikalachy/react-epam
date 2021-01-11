@@ -4,12 +4,13 @@ import SearchCard from "../search/searchCard";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Badge from 'react-bootstrap/Badge';
-import Button from 'react-bootstrap/Button';
+import ModalWithButton from '../movies/modal-with-button';
+
 
 import overlayimg from "./img/netflix-menu1.png"
 import 'holderjs';
 
-export default function HeaderCard(props) {
+export default function HeaderCard({ item, dispatch, ...props }) {
 
     if (props.details) {
         return (
@@ -18,7 +19,7 @@ export default function HeaderCard(props) {
                     <Card.Title as="h4" className="mb-4 text-danger" ><strong >netflix</strong>roulette</Card.Title>
                     <Row className="ml-1">
                         <Col>
-                            <Card.Img src={props.item.posterurl}/>
+                            <Card.Img src={props.item.posterurl} />
                         </Col>
                         <Col className="mb-4">
                             <Card.Title as="h2" className="mb-4 text-white-50"><strong >{props.item.title}</strong>   <Badge variant="success">{props.item.imdbRating}</Badge></Card.Title>
@@ -39,17 +40,7 @@ export default function HeaderCard(props) {
                 <Card.Img src={overlayimg} style={{ filter: 'blur(6px)' }} alt="Card image" />
                 <Card.ImgOverlay>
                     <Card.Title as="h4" ><strong >netflix</strong>roulette</Card.Title>
-                    <Button
-                        onClick={() => props.handleShowModal(true)}
-                        style={{
-                            borderStyle: 'hidden',
-                            background: 'rgba(85, 85, 85, 0.7)',
-                            color: '#dc3545',
-                            position: 'absolute', top: 20, right: 30
-                        }}
-                        size="lg">
-                        <strong >+ ADD MOVIE</strong>
-                    </Button>
+                    <ModalWithButton title="+ ADD MOVIE" dispatch={dispatch} />
                     <Card.Body>
                         <SearchCard />
                     </Card.Body>

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -8,97 +8,97 @@ import NavigationBar from './components/navBar'
 import MovieList from "./components/movies/MovieList";
 import Footer from './components/footer/Footer';
 import ErrorBoundry from './components/ErrorBoundry';
-import AddEditMovieModal from "./components/movies/AddEditMovieModal";
 
 import { v4 as uuidv4 } from 'uuid';
 
 import "./styles.css";
 
-export default function App( {movies: initialMovies} ) {
+export const ACTIONS = {
+  ADD_MOVIE: 'add-movie',
+  EDIT_MOVIE: 'edit-movie',
+  REMOVE_MOVIE: 'remove-movie',
 
-  const [movies, setMovies] = useState(initialMovies);
-  const [current, setCurrent] = useState({id:'',title:'',storyline:'', genres: []});
+  SHOW_MOVIE_DETAILS: 'show-movie-details'
+}
 
-  const [showModal, setShowModal] = useState(false);
-  const [showDetails, setShowDetails] = useState(false);
 
-  function changeHeader(id){
-    console.log("change details => " + !showDetails + "; " + id);
-    let mov = movies.filter(movie => movie.id === id)[0]
-    setCurrent(mov);
+function reducer(movies, action) {
 
-    //setShowDetails(!showDetails);
-    setShowDetails(true);
+  switch (action.type) {
+    case ACTIONS.ADD_MOVIE:
+      return [...movies, newMovie(action.payload.movie)]
+    case ACTIONS.REMOVE_MOVIE:
+      return movies.filter(movie => movie.id !== action.payload.id)
+    case ACTIONS.EDIT_MOVIE:
+      return movies.map(movie => {
+        if (movie.id === action.payload.movie.id) {
+          return { ...action.payload.movie }
+        }
+        return movie
+      })
+    default:
+      return movies
+
+      console.log(movies)
   }
+}
 
-  function handleShowModal(show) {
-    if (show !== showModal) {
-      console.log(showModal);
-      setShowModal(show);
-    }
+function newMovie(newMoview) {
+  return {
+    id: uuidv4(),
+    title: '',
+    imdbRating: 4.3,
+    storyline: '',
+    genres: [],
+    description: '',
+    year: 2006,
+    posterurl: 'https://dummyimage.com/337x500/232323/FF'
   }
-
-  function handleUpsert(mov) {
-    console.log('MovieList.handleAdd: ' + mov.id);
-
-    const i = movies.findIndex(_item => _item.id === mov.id);
-
-    if (i > -1) {
-      movies[i] = mov;
-    }
-    else {
-      mov.id = uuidv4();
-      movies.push(mov);
-    }
-
-    setMovies(movies);
-    setCurrent(null);
-    setShowDetails(false);
-    handleShowModal(false);
-
-  }
-
-  function handleForEdit(id) {
-    console.log('MovieList.handleEdit: ' + id);
-    let mov = movies.filter(movie => movie.id === id)[0]
-    setCurrent(mov);
-    handleShowModal(true);
-  }
+}
 
 
-  function handleRemove(id) {
-    console.log('MovieList.handleRemove: ' + id);
-    setMovies(movies.filter(movie => movie.id !== id));
-    setShowDetails(false);
-  }
+
+export default function App({ movies: initialMovies }) {
+
+  const [movies, dispatch] = useReducer(reducer, initialMovies)
+
+  /*useEffect(() => {
+    fetch('http://my-json-server.typicode.com/ikalachy/api/movies/')
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setState({
+    
+            movies: result.items
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          setState({
+            movies: initialMovies
+          });
+        }
+      )
+    //console.log(movies)
+  })*/
 
   return (
-
     <Container fluid >
-      <HeaderCard details={showDetails} item={current} handleShowModal={handleShowModal}/><p />
+      <HeaderCard details={false} dispatch={dispatch} /><p />
       <NavigationBar /><p />
+
       <ErrorBoundry>
-        <MovieList movies={movies}
-          handleEdit={handleForEdit}
-          handleRemove={handleRemove}
-          showDetails={ changeHeader }>
-        </MovieList>
+        <MovieList movies={movies} dispatch={dispatch} />
       </ErrorBoundry>
 
       <Row>
         <Col>
-          <Footer>
-            <p className="text-center"> copyright (c) 2020</p>
-          </Footer>
+          <Footer />
         </Col>
       </Row>
 
-        <AddEditMovieModal
-          onClick={() => handleShowModal(true)}
-          show={showModal}
-          movie={current}
-          upsert={handleUpsert}
-          onHide={() => handleShowModal(false)} />
     </Container>
 
   );
