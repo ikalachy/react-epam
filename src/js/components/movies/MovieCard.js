@@ -6,10 +6,11 @@ import ModalWithButton from '../movies/modal-with-button';
 
 import { ACTIONS } from '../../App'
 
-export default function MovieCard({ dispatch, movie, ...props }) {
+export default function MovieCard({ dispatch, showDetails, movie, ...props }) {
 
-    { console.log('Render card id: ' + movie.id + ' title: ' +  movie.title) }
-
+    //{ //console.log('Render card id: ' + movie.id + ' title: ' +  movie.title) }
+    //{ console.log('Render card'}
+    //descriptionToggle
 
     return (
         <>
@@ -23,7 +24,7 @@ export default function MovieCard({ dispatch, movie, ...props }) {
                     <Card.Text>
                         {movie.year}
                     </Card.Text>
-                    <Button variant="primary" onClick={() => props.showDetails(movie.id)} >View more</Button>
+                    <Button variant="primary" onClick={() => showDetails(movie)} >View more</Button>
                 </Card.Body>
                 <Card.Footer>
                     <small className="text-muted">{movie.genres.join(' ,')}</small>

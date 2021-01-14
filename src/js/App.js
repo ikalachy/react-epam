@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useCallback, useReducer } from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -56,11 +56,18 @@ function newMovie(newMoview) {
   }
 }
 
-
-
 export default function App({ movies: initialMovies }) {
 
+  { console.log('Render App') }
+
   const [movies, dispatch] = useReducer(reducer, initialMovies)
+  const [currentMovie, setCurrentMovie] = useState([]);
+
+  const handleShowDesc = useCallback((mov) => {
+    setCurrentMovie(mov)
+  }, []);
+
+
 
   /*useEffect(() => {
     fetch('http://my-json-server.typicode.com/ikalachy/api/movies/')
@@ -84,13 +91,15 @@ export default function App({ movies: initialMovies }) {
     //console.log(movies)
   })*/
 
+
+
   return (
     <Container fluid >
-      <HeaderCard details={false} dispatch={dispatch} /><p />
+      <HeaderCard item={currentMovie} showDetails={handleShowDesc} dispatch={dispatch} /><p />
       <NavigationBar /><p />
 
       <ErrorBoundry>
-        <MovieList movies={movies} dispatch={dispatch} />
+        <MovieList showDetails={handleShowDesc} movies={movies} dispatch={dispatch} />
       </ErrorBoundry>
 
       <Row>
