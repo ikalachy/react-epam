@@ -1,22 +1,43 @@
-import React, { useMemo } from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux'
 import MovieCard from './MovieCard';
 import CardColumns from 'react-bootstrap/CardColumns'
 
-export default function MovieList({ dispatch, showDetails, movies }) {
+import { fetchAllMovies  } from '../../reducers/movies'
 
-    { console.log('Render MovieList') }
 
-    const MovieListElements = useMemo(() => {
-        return movies.map((movie) => (
-            <MovieCard showDetails={showDetails}
-                key={movie.id}
-                movie={movie}
-                dispatch={dispatch}
-            />))}, [dispatch, showDetails, movies])
+export default function MovieList({ removeMovie, showDetails, movies }) {
+
+    { console.log('Render MovieList: ' + movies.length) }
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        //if (postStatus === 'idle') {
+       dispatch(fetchAllMovies())
+        //}
+      }, [])
+
+
+    if (movies.length<=0) {
+        return (
+          <section>
+            <h2>Movies not found!</h2>
+          </section>
+        )
+      }
 
     return (
         <CardColumns>
-            { MovieListElements}
+            {
+                movies.map((movie) => (
+                    <MovieCard 
+                        key={movie.id}
+                        movie={movie}
+                        removeMovie={removeMovie}
+                        showDetails={showDetails}
+                    />))
+            }
         </CardColumns>
     )
 }

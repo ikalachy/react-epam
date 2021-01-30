@@ -1,21 +1,31 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Card from 'react-bootstrap/Card';
 import SearchCard from "../search/searchCard";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
-import ModalWithButton from '../movies/modal-with-button';
+
+//ACTIONS
+import { showModal } from '../../actions/actions'
 
 
 import overlayimg from "./img/netflix-menu1.png"
 import 'holderjs';
 
 
-export default function HeaderCard({ item, dispatch, showDetails, ...props }) {
+export default function HeaderCard({ item, toggleHeader, addMovie, isOpen }) {
 
     const blurStyle = {
         filter: 'blur(6px)'
+    }
+
+    const addMovieButtonStyle = {
+        borderStyle: 'hidden',
+        background: 'rgba(85, 85, 85, 0.7)',
+        color: '#dc3545',
+        position: 'absolute', top: 20, right: 30
     }
 
     const buttonStyle = {
@@ -26,11 +36,16 @@ export default function HeaderCard({ item, dispatch, showDetails, ...props }) {
     }
 
 
+    const dispatch = useDispatch()
+    // hideModal: () => dispatch(hideModal()),
+    //showModal: (isOpen) => dispatch(showModal(isOpen))
+
+
     if (item.id) {
         return (
             <Card className="bg-dark " >
                 <Card.Body>
-                    <Button onClick={() => showDetails([])} style={buttonStyle} size="lg">
+                    <Button onClick={() => toggleHeader(item.id)} style={buttonStyle} size="lg">
                         <strong >X</strong>
                     </Button>
                     <Card.Title as="h4" className="mb-4 text-danger" ><strong >netflix</strong>roulette</Card.Title>
@@ -55,12 +70,19 @@ export default function HeaderCard({ item, dispatch, showDetails, ...props }) {
                 </Card.Body>
             </Card>)
     } else {
+        // <ModalWithButton title="+ ADD MOVIE" dispatch={dispatch} />
         return (
             <Card className="bg-dark " text="danger">
                 <Card.Img src={overlayimg} style={blurStyle} alt="Card image" />
                 <Card.ImgOverlay>
                     <Card.Title as="h4" ><strong >netflix</strong>roulette</Card.Title>
-                    <ModalWithButton title="+ ADD MOVIE" dispatch={dispatch} />
+
+                    <Button
+                        onClick={() => dispatch(showModal(item.id))}
+                        style={addMovieButtonStyle}
+                        size="lg">
+                        <strong >ADD</strong>
+                    </Button>
                     <Card.Body>
                         <SearchCard />
                     </Card.Body>
