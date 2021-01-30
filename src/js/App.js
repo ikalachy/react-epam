@@ -98,10 +98,6 @@ export default function App({ movies: initialMovies }) {
       <HeaderCard item={currentMovie} showDetails={handleShowDesc} dispatch={dispatch} /><p />
       <NavigationBar /><p />
 
-      <ErrorBoundry>
-        <MovieList showDetails={handleShowDesc} movies={movies} dispatch={dispatch} />
-      </ErrorBoundry>
-
       <Row>
         <Col>
           <Footer />
