@@ -7,6 +7,12 @@ import { Provider } from 'react-redux'
 import App from "./App";
 
 import rootReducer from './reducers'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -31,7 +37,7 @@ const initialState = {
 //code to setup redux dev tools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(rootReducer, initialState, composeEnhancers(applyMiddleware(thunk) ))
+const store = createStore(rootReducer, initialState, composeEnhancers(applyMiddleware(thunk)))
 // &&
 //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 

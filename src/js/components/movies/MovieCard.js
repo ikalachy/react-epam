@@ -1,5 +1,5 @@
 import React from "react";
-import {  useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import PropTypes from 'prop-types'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button';
@@ -7,7 +7,9 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { showModal } from '../../actions/actions'
 import { deleteMovieApi } from '../../reducers/movies'
 
-export default function MovieCard({ showDetails, removeMovie, movie, ...props }) {
+import { Link } from "react-router-dom";
+
+export default function MovieCard({ match, showDetails, removeMovie, movie, ...props }) {
 
     //{ //console.log('Render card id: ' + movie.id + ' title: ' +  movie.title) }
     //{ console.log('Render card'}
@@ -24,7 +26,7 @@ export default function MovieCard({ showDetails, removeMovie, movie, ...props })
 
     const dispatch = useDispatch()
 
-    function handleRemove(id){
+    function handleRemove(id) {
         dispatch(deleteMovieApi(movie.id))
     }
 
@@ -32,7 +34,7 @@ export default function MovieCard({ showDetails, removeMovie, movie, ...props })
         <>
             <Card key={'movie-card-' + movie.id} bg="dark" text="white" style={cardStyle}>
 
-                <Dropdown  variant="secondary" align="right" >
+                <Dropdown variant="secondary" align="right" >
                     <Dropdown.Toggle style={menuButtonStyle} />
                     <Dropdown.Menu align="right" >
                         <Dropdown.Item size="lg" as="button" onClick={() => dispatch(showModal(movie.id))} >edit</Dropdown.Item>
@@ -40,15 +42,14 @@ export default function MovieCard({ showDetails, removeMovie, movie, ...props })
                     </Dropdown.Menu>
                 </Dropdown>
 
-                <Card.Link href="#" >
+                <Link to={`/movie/${movie.id}`}>
                     <Card.Img src={movie.posterurl} />
-                </Card.Link>
+                </Link>
                 <Card.Body>
                     <Card.Title >{movie.title}</Card.Title>
                     <Card.Text>
                         {movie.year}
                     </Card.Text>
-                    <Button variant="primary" onClick={() => showDetails(movie.id)} >View more</Button>
                 </Card.Body>
                 <Card.Footer>
                     <small className="text-muted">{movie.genres ? movie.genres.join(' ,') : ''}</small>

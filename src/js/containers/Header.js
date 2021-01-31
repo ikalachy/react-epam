@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { toggleHeader, addMovie, showModal, hideModal } from '../actions/actions'
+import { toggleHeader, addMovie } from '../actions/actions'
 import HeaderCard from '../components/header/HeaderCard'
 
 //show details in case we need them for Header 

@@ -10,7 +10,6 @@ function NavigationBar() {
 
     const GENRES = ['Documentary', 'Comedy', 'Horror', 'Crime']
 
-
     const dispatch = useDispatch()
 
     const handleFilterByGenre = (e) => {
@@ -23,7 +22,7 @@ function NavigationBar() {
                 <Navbar.Brand
                     onClick={
                         () => dispatch(
-                            { type: 'SET_VISIBILITY_FILTER', filter: 'SHOW_ALL', value: '' } )}
+                            { type: 'SET_VISIBILITY_FILTER', filter: 'SHOW_ALL', value: '' })}
                     href="#home">All</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">

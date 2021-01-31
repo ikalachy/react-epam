@@ -6,7 +6,7 @@ import CardColumns from 'react-bootstrap/CardColumns'
 import { fetchAllMovies  } from '../../reducers/movies'
 
 
-export default function MovieList({ removeMovie, showDetails, movies }) {
+export default function MovieList({ removeMovie, showDetails, movies, match }) {
 
     { console.log('Render MovieList: ' + movies.length) }
 
@@ -22,7 +22,7 @@ export default function MovieList({ removeMovie, showDetails, movies }) {
     if (movies.length<=0) {
         return (
           <section>
-            <h2>Movies not found!</h2>
+            <h1 className="text-white text-center">No Movies found!</h1>
           </section>
         )
       }
