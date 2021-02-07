@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render Footer component with children 1`] = `
+<footer>
+  <p
+    className="text-center"
+  >
+     copyright (c) 2020
+  </p>
+  <h1>
+    Hello, Footer
+  </h1>
+</footer>
+`;
+
+exports[`render Footer component without children 1`] = `
+<footer>
+  <p
+    className="text-center"
+  >
+     copyright (c) 2020
+  </p>
+</footer>
+`;
