@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import MovieCard from './MovieCard';
 import CardColumns from 'react-bootstrap/CardColumns'
 
-import { fetchAllMovies  } from '../../reducers/movies'
-
+import useLayoutEffect from '../../use-isomorphic-layout-effect';
 
 export default function MovieList({ removeMovie, showDetails, movies, match }) {
 
-    { console.log('Render MovieList: ' + movies.length) }
+    { console.log('Render MovieList: ') }
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         //if (postStatus === 'idle') {
-       dispatch(fetchAllMovies())
+       console.log('Render MovieList useEffect() ')
+       //dispatch(fetchAllMovies())
         //}
       }, [])
 

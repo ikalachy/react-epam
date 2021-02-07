@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 const movies = (state = [], action) => {
+    console.log(`movies dispatch ${action.type} `)
     switch (action.type) {
         case MOVIE_ACTIONS.ADD_MOVIE:
             return [

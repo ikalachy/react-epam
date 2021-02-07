@@ -8,6 +8,8 @@ export default function PageNotFount({ errMessage }) {
 
   let location = useLocation();
 
+  {console.log("PageNotFount")}
+
   return (
     <div class="text-center">
       <Alert variant="danger" onClose={() => setShow(false)} >

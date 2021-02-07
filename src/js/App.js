@@ -16,9 +16,18 @@ import {
 
 import "./styles.css";
 import Header from "./containers/Header";
+
+import loadable from '@loadable/component'
+
+//const MovieDetails = loadable(() => import('./components/header/MovieDetails'))
 import MovieDetails from "./components/header/MovieDetails";
+
 import PageNotFount from "./404";
 import SearchResults from "./containers/SearchResults";
+
+//const PageNotFount = lazy(() => import('./404'))
+//const MovieDetails = lazy(() => import('./components/header/MovieDetails'))
+//const SearchResults = lazy(() => import('./containers/SearchResults'))
 
 
 export default function App() {
@@ -29,49 +38,52 @@ export default function App() {
   //     <Route path="/*" component={PageNotFount} />
 
   return (
-    <Router>
-      <Container fluid >
 
-        <Switch>
-          <Route path="/" exact render={() =>
-            <>
-              <Header />
-              <NavigationBar /><p />
-              <VisibleMovieList />
-            </>
-          } />
+    <Container className="container-sm" fluid >
 
-          <Route path="/movie/:id" render={({ match }) =>
-            <>
-              <MovieDetails match={match} />
-              <NavigationBar /><p />
-              <VisibleMovieList />
-            </>
-          } />
+      <Switch>
+        <Route path="/" exact render={() =>
+          <>
+            {console.log("route 1")}
+            <Header />
+            <NavigationBar /><p />
+            <VisibleMovieList />
+          </>
+        } />
 
-          <Route path="/search/:query" exact render={({ match }) =>
-            <>
-              <Header />
-              <NavigationBar /><p />
-              <SearchResults match={match} />
-            </>
-          } />
+        <Route path="/movie/:id" render={({ match }) =>
+          <>
+            {console.log("route 2")}
+            <MovieDetails match={match} />
+            <NavigationBar /><p />
+            <VisibleMovieList />
+          </>
+        } />
 
-          <Route path="/*" component={PageNotFount} />
-        </Switch>
+        <Route path="/search/:query" exact render={({ match }) =>
+          <>
+            {console.log("route 3")}
+            <Header />
+            <NavigationBar /><p />
+            <SearchResults match={match} />
+          </>
+        } />
 
-        <Row>
-          <Col>
-            <Footer />
-          </Col>
-        </Row>
+        <Route path="/*" component={PageNotFount} />
+      </Switch>
 
-        {modalIsOpen
-          ? <MoviesModal isOpen={modalIsOpen} />
-          : ''}
-      </Container>
+      <Row>
+        <Col>
+          <Footer />
+        </Col>
+      </Row>
 
-    </Router>
+      {modalIsOpen
+        ? <MoviesModal isOpen={modalIsOpen} />
+        : ''}
+    </Container>
+
+
 
 
   );

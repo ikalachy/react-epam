@@ -7,8 +7,8 @@ import Col from 'react-bootstrap/Col';
 import Badge from 'react-bootstrap/Badge';
 import { Link } from "react-router-dom";
 
-
-export default function MovieDetails({ match }) {
+const MovieDetails = ({ match }) =>
+ {
 
     console.log('movie details ')
 
@@ -62,3 +62,5 @@ export default function MovieDetails({ match }) {
 
 
 }
+
+export default MovieDetails

@@ -34,7 +34,7 @@ export default function HeaderCard({ item }) {
 
     return (
         <Card className="bg-dark " text="danger">
-            <Card.Img src={overlayimg} style={blurStyle} alt="Card image" />
+            <Card.Img src="/6ba26a8c0856a371e93b0ea202effbd3.png" style={blurStyle} alt="Card image" />
             <Card.ImgOverlay>
                 <Card.Title as="h2" >
                     <strong >netflix</strong>roulette
